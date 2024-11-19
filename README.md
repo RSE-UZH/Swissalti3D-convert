@@ -56,8 +56,31 @@ Key features:
 - Supports conversion to common vertical datums (EGM08, EGM96)
 - Handles coordinate system reprojection
 
+```python
+from pathlib import Path
+from convert_swissalti import transform_ln02_to_ellipsoid, convert_dem_vertical_datum
+
+# Convert to UTM32N with EGM08 heights
+dem_path = Path("outputs/swissalti3d_aletsch_2056_LV95_2m.tif")
+chgeo2004_path = Path("geoid/Geoid_OGD/chgeo2004_htrans_ETRS.tif")
+egm08_path = Path("geoid/us_nga_egm2008_1.tif")
+
+# Step 1: Convert to ellipsoid heights
+dem_ellipsoid = transform_ln02_to_ellipsoid(
+    dem=dem_path,
+    chgeo2004_geoid_path=chgeo2004_path,
+    target_crs="32632"  # UTM32N
+)
+
+# Step 2: Convert to EGM08
+dem_egm08 = convert_dem_vertical_datum(
+    dem=dem_ellipsoid,
+    geoid=egm08_path
+)
+```
+
 ## Installation 
 
 ```bash
 pip install -r requirements.txt
-``` 
+```
