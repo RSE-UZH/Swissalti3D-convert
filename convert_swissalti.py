@@ -183,15 +183,15 @@ def compute_difference(
 
 
 if __name__ == "__main__":
-    dem_path = Path("aletsch_merged.tif")
-    output_dir = Path("./")
-    chgeo2004_geoid_path = Path("Geoid_OGD/chgeo2004_htrans_ETRS.tif")
-    egm08_geoid_path = Path("us_nga_egm2008_1.tif")
+    dem_path = Path("outputs/swissalti3d_aletsch_2056_LV95_2m.tif.tif")
+    chgeo2004_geoid_path = Path("geoid/Geoid_OGD/chgeo2004_htrans_ETRS.tif")
+    egm08_geoid_path = Path("geoid/us_nga_egm2008_1.tif")
     target_crs = "32632"
     final_resolution = 5
 
-    output_dir.mkdir(exist_ok=True, parents=True)
+    output_dir = Path("outputs")
     output_path = output_dir / f"swissalti3d_aletsch_{target_crs}_EGM08.tif"
+    output_dir.mkdir(exist_ok=True, parents=True)
 
     # Step 1: Reproject DEM to ellipsoid and optionally to target CRS
     dem_ETRS89 = transform_ln02_to_ellipsoid(

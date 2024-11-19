@@ -210,29 +210,14 @@ def merge_tiles(
 
 
 if __name__ == "__main__":
-    # tiles_dir = Path("./aletsch_tiles")
-    # dem_ext = ".tif"
-    # merged_dem_path = Path("aletsch_merged.tif")
+    tiles_dir = Path("./data/aletsch_tiles")
+    dem_ext = ".tif"
+    merged_dem_path = Path("outputs/swissalti3d_aletsch_2056_LV95_2m.tif")
 
-    # # Get list of DEM tiles
-    # tiles_paths = sorted(tiles_dir.glob(f"*{dem_ext}"), key=get_chunk_id)
-    # if not tiles_paths:
-    #     raise ValueError("No DEM tiles found.")
+    # Get list of DEM tiles
+    tiles_paths = sorted(tiles_dir.glob(f"*{dem_ext}"), key=get_chunk_id)
+    if not tiles_paths:
+        raise ValueError("No DEM tiles found.")
 
-    # # find the index of the first tile that contains the number 2620 in the filename and exclude all tiles before that from the list
-    # # start_index = 0
-    # # for i, tile in enumerate(tiles_paths):
-    # #     if "2620" in tile.name:
-    # #         start_index = i
-    # #         break
-    # # tiles_paths2 = tiles_paths[start_index:]
-
-    # # chunk_id = "2588"
-    # # selected_tiles = [tile for tile in tiles_paths2 if chunk_id in tile.name]
-
-    # # Merge tiles
-    # merged_dem = merge_tiles(tiles_paths, merged_dem_path, parallel=True)
-
-    tile0 = "aletsch_merged.tif"
-    tile1 = "swissalti3d_2019_2620-1168_2_2056_5728.tif"
-    merged_dem = merge_tiles([tile0, tile1], "aletsch_merged2.tif")
+    # Merge tiles
+    merged_dem = merge_tiles(tiles_paths, merged_dem_path, parallel=True)
